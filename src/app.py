@@ -15,10 +15,11 @@ def hello_world():
 
 @app.route('/todos', methods=['POST'])
 def add_new_todo():
+    request.get_json(force=True)
     request_body = request.json
     print("Incoming request with the following body", request_body)
     todos.append(request_body)
-    return jsonify(todos)
+    return jsonify(todos), 200
 
 @app.route('/todos/<int:position>', methods=['DELETE'])
 def delete_todo(position):
